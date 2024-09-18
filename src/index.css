@@ -1,0 +1,40 @@
+:root {
+	--font: 'Poppins', sans-serif;
+	--regular: 400;
+	--bold: 600;
+
+	--size-xxl: 64px;
+	--size-xl: 48px;
+	--size-l: 32px;
+	--size-m: 20px;
+	--size-s: 16px;
+	--size-xs: 14px;
+
+	--primary-color: #ebeef5;
+	--secondary-color: #a8aebf;
+	--secondary-color-hover: #c2c8d7;
+	--accent-color: #7b6ef6;
+	--accent-color-hover: #6458d3;
+	--favorites-color: #37d8a7;
+	--text-color: #8e95a9;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: var(--font);
+	font-weight: var(--regular);
+	font-style: normal;
+
+	margin: 0;
+	display: flex;
+	min-width: 320px;
+	min-height: 100vh;
+}
