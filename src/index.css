@@ -38,4 +38,5 @@ body {
 	display: flex;
 	min-width: 320px;
 	min-height: 100vh;
+	background: #121829 url('/Background.svg') center center/cover no-repeat;
 }
