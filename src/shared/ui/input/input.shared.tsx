@@ -7,16 +7,14 @@ function InputRef(
 	{
 		caption,
 		error = false,
-		iconLeft,
+		iconLeftPath,
 		iconLeftAlt = '',
-		iconRight,
+		iconRightPath,
 		iconRightAlt = '',
 		...props
 	}: IProps,
 	ref: ForwardedRef<HTMLInputElement>
 ) {
-	const withLeftIcon = iconLeft !== undefined && iconLeft.length > 0;
-	const withRightIcon = iconRight !== undefined && iconRight.length > 0;
 	return (
 		<label className={styles['wrap']}>
 			<input
@@ -24,29 +22,29 @@ function InputRef(
 				ref={ref}
 				className={cn(styles['input'], {
 					[styles['input_error']]: error,
-					[styles['input_with-left-icon']]: withLeftIcon,
-					[styles['input_with-right-icon']]: withRightIcon
+					[styles['input_with-left-icon']]: iconLeftPath,
+					[styles['input_with-right-icon']]: iconRightPath
 				})}
 				placeholder=" "
 			/>
 			<span
 				className={cn(styles['caption'], {
-					[styles['caption_with-left-icon']]: withLeftIcon,
-					[styles['caption_with-right-icon']]: withRightIcon
+					[styles['caption_with-left-icon']]: iconLeftPath,
+					[styles['caption_with-right-icon']]: iconRightPath
 				})}
 			>
 				{caption}
 			</span>
-			{withLeftIcon && (
+			{iconLeftPath && (
 				<img
-					src={iconLeft}
+					src={iconLeftPath}
 					alt={iconLeftAlt}
 					className={cn(styles['icon'], styles['icon-left'])}
 				/>
 			)}
-			{withRightIcon && (
+			{iconRightPath && (
 				<img
-					src={iconRight}
+					src={iconRightPath}
 					alt={iconRightAlt}
 					className={cn(styles['icon'], styles['icon-right'])}
 				/>

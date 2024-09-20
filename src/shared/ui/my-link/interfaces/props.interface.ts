@@ -1,7 +1,8 @@
 import { AnchorHTMLAttributes } from 'react';
+import { TIconPath } from '../../icon/interfaces/icon-path.type';
 
 export interface IProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-	icon?: string;
+	iconPath?: TIconPath;
 	iconAlt?: string;
 	iconRight?: boolean;
 }

@@ -22,14 +22,14 @@ createRoot(document.getElementById('root')!).render(
 		<Input
 			type="text"
 			caption="Поиск"
-			iconLeft="/search-normal.svg"
+			iconLeftPath="/search-normal.svg"
 			iconLeftAlt="Поиск"
 		/>
 		<Input
 			type="text"
 			caption="Поиск"
-			iconRight="/search-normal.svg"
-			iconLeftAlt="Поиск"
+			iconRightPath="/search-normal.svg"
+			iconRightAlt="Поиск"
 		/>
 		<Button>Кнопка</Button>
 	</StrictMode>
