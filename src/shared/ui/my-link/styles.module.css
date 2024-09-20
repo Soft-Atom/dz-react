@@ -1,0 +1,11 @@
+.link {
+	font-size: var(--size-s);
+	font-weight: var(--bold);
+	line-height: 24px;
+	display: flex;
+	gap: 8px;
+}
+
+.icon-right {
+	order: 1;
+}

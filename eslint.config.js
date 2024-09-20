@@ -27,7 +27,14 @@ export default tseslint.config(
 			'comma-dangle': ['error', 'never'],
 			quotes: ['error', 'single'],
 			'react/prop-types': [0],
-			indent: ['error', 'tab']
+			indent: ['error', 'tab'],
+
+			'@typescript-eslint/no-empty-object-type': [
+				'error',
+				{
+					allowInterfaces: 'with-single-extends'
+				}
+			]
 		}
 	}
 );

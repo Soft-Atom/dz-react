@@ -1,7 +1,7 @@
 .p {
 	line-height: 1.5em;
 	font-weight: var(--regular);
-	color: var(--text-color);
+	color: var(--secondary-color);
 }
 
 .p_m {

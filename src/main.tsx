@@ -5,9 +5,11 @@ import { Button } from './shared/ui/button';
 import { Heading, HeadingSize } from './shared/ui/heading';
 import { Paragraph, ParagraphSizes } from './shared/ui/paragraph';
 import { Input } from './shared/ui/input';
+import { Header } from './wigets/header';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
+		<Header />
 		<Heading size={HeadingSize.h1}>Заголовок 1</Heading>
 		<Heading size={HeadingSize.h2}>Заголовок 2</Heading>
 		<Heading size={HeadingSize.h3}>Заголовок 3</Heading>
