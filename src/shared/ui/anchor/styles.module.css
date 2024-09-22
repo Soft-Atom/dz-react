@@ -5,6 +5,9 @@
 	display: flex;
 	gap: 8px;
 }
+.icon {
+	max-height: 24px;
+}
 
 .icon-right {
 	order: 1;

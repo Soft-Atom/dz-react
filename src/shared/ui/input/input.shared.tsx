@@ -4,15 +4,7 @@ import styles from './styles.module.css';
 import cn from 'classnames';
 
 function InputRef(
-	{
-		caption,
-		error = false,
-		iconLeftPath,
-		iconLeftAlt = '',
-		iconRightPath,
-		iconRightAlt = '',
-		...props
-	}: IProps,
+	{ caption, error = false, iconLeft, iconRight, ...props }: IProps,
 	ref: ForwardedRef<HTMLInputElement>
 ) {
 	return (
@@ -22,32 +14,27 @@ function InputRef(
 				ref={ref}
 				className={cn(styles['input'], {
 					[styles['input_error']]: error,
-					[styles['input_with-left-icon']]: iconLeftPath,
-					[styles['input_with-right-icon']]: iconRightPath
+					[styles['input_with-left-icon']]: iconLeft,
+					[styles['input_with-right-icon']]: iconRight
 				})}
 				placeholder=" "
 			/>
 			<span
 				className={cn(styles['caption'], {
-					[styles['caption_with-left-icon']]: iconLeftPath,
-					[styles['caption_with-right-icon']]: iconRightPath
+					[styles['caption_with-left-icon']]: iconLeft
 				})}
 			>
 				{caption}
 			</span>
-			{iconLeftPath && (
-				<img
-					src={iconLeftPath}
-					alt={iconLeftAlt}
-					className={cn(styles['icon'], styles['icon-left'])}
-				/>
+			{iconLeft && (
+				<div className={cn(styles['icon'], styles['icon-left'])}>
+					{iconLeft}
+				</div>
 			)}
-			{iconRightPath && (
-				<img
-					src={iconRightPath}
-					alt={iconRightAlt}
-					className={cn(styles['icon'], styles['icon-right'])}
-				/>
+			{iconRight && (
+				<div className={cn(styles['icon'], styles['icon-right'])}>
+					{iconRight}
+				</div>
 			)}
 		</label>
 	);

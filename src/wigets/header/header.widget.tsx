@@ -1,6 +1,6 @@
-import { AppRoutes } from '../../shared/lib/react-router';
-import { Icon, IconSet } from '../../shared/ui/icon';
-import { MyLink } from '../../shared/ui/my-link';
+import { AppRoutes } from '~shared/lib/react-router';
+import { Anchor } from '~shared/ui/anchor';
+import { Icon, IconSet } from '~shared/ui/icon';
 import styles from './styles.module.css';
 
 export function Header() {
@@ -18,31 +18,32 @@ export function Header() {
 			<nav>
 				<ul className={styles['menu']}>
 					<li className={styles['menu-item']}>
-						<MyLink href={AppRoutes.search()}>Поиск фильмов</MyLink>
+						<Anchor href={AppRoutes.search()}>Поиск фильмов</Anchor>
 					</li>
 					<li className={styles['menu-item']}>
-						<MyLink href={AppRoutes.favorites()}>
+						<Anchor href={AppRoutes.favorites()}>
 							Мои фильмы
 							{favorites.count > 0 && (
 								<span className={styles['favorites-count']}>
 									{favorites.count}
 								</span>
 							)}
-						</MyLink>
+						</Anchor>
 					</li>
 					{currentUser ? (
 						<li className={styles['menu-item']}>
-							<MyLink>Выйти</MyLink>
+							<Anchor>Выйти</Anchor>
 						</li>
 					) : (
 						<li className={styles['menu-item']}>
-							<MyLink
+							<Anchor
 								href={AppRoutes.login()}
-								iconPath={IconSet.login}
+								// icon={<></>}
+								icon={<Icon src={IconSet.login} alt="Иконка входа" />}
 								iconRight={true}
 							>
 								Войти
-							</MyLink>
+							</Anchor>
 						</li>
 					)}
 				</ul>

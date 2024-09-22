@@ -1,11 +1,9 @@
 import { InputHTMLAttributes } from 'react';
-import type { TIconPath } from '../../icon/interfaces/icon-path.type';
+import { Icon } from '../../icon';
 
 export interface IProps extends InputHTMLAttributes<HTMLInputElement> {
 	caption: string;
 	error?: boolean;
-	iconLeftPath?: TIconPath;
-	iconLeftAlt?: string;
-	iconRightPath?: TIconPath;
-	iconRightAlt?: string;
+	iconLeft?: ReturnType<typeof Icon>;
+	iconRight?: ReturnType<typeof Icon>;
 }
