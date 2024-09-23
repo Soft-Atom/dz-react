@@ -22,38 +22,49 @@ const ShortSchema = z.object({
 	})
 });
 
-export const MovieDtoSchema = z.object({
+const MovieDtoSchema = z.object({
 	short: ShortSchema,
 	imdbId: z.string()
 });
 
-export const MovieShortDtoSchema = z.object({
+export const MovieSchema = MovieDtoSchema.transform(({ short, imdbId }) => {
+	const {
+		aggregateRating: { ratingValue },
+		'@type': type,
+		...rest
+	} = short;
+	return {
+		id: imdbId,
+		type,
+		ratingValue,
+		...rest
+	};
+});
+
+const MovieShortDtoSchema = z.object({
 	'#IMDB_ID': z.string(),
 	'#TITLE': z.string(),
 	'#IMG_POSTER': z.string().url(),
 	'#RANK': z.number()
 });
 
-export const MoviesDtoSchema = z.object({
+const MoviesDtoSchema = z.object({
 	ok: z.boolean(),
 	description: z.array(MovieShortDtoSchema),
 	error_code: z.number()
 });
 
-export const MovieSchema = ShortSchema.omit({
-	aggregateRating: true,
-	'@type': true
-}).extend({
-	id: z.string(),
-	type: z.string(),
-	ratingValue: z.number()
-});
-
-export const MovieShortSchema = MovieSchema.pick({
-	id: true,
-	name: true,
-	image: true,
-	ratingValue: true
-});
-
-export const MoviesSchema = z.map(MovieShortSchema.shape.id, MovieShortSchema);
+export const MoviesSchema = MoviesDtoSchema.transform(
+	({ description }) =>
+		new Map(
+			description.map((x) => {
+				const {
+					'#IMDB_ID': id,
+					'#TITLE': name,
+					'#IMG_POSTER': image,
+					'#RANK': ratingValue
+				} = x;
+				return [id, { id, name, image, ratingValue }];
+			})
+		)
+);

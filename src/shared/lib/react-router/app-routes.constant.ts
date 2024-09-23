@@ -8,7 +8,6 @@ export const AppRoutes = {
 
 	movies: {
 		root: () => AppRoutes.root.concat('movies/'),
-		byId: ({ id }: { id: number }) =>
-			AppRoutes.movies.root().concat(String(id), '/')
+		byId: ({ id }: { id: string }) => AppRoutes.movies.root().concat(id, '/')
 	}
 } as const;
