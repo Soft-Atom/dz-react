@@ -44,7 +44,7 @@ export const MovieSchema = MovieDtoSchema.transform(({ short, imdbId }) => {
 const MovieShortDtoSchema = z.object({
 	'#IMDB_ID': z.string(),
 	'#TITLE': z.string(),
-	'#IMG_POSTER': z.string().url(),
+	'#IMG_POSTER': z.string().optional().default('/movie-without-image.jpg'),
 	'#RANK': z.number()
 });
 

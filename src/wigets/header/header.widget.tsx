@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 export function Header() {
 	const currentUser = null;
 	const favorites = {
-		movies: [],
+		movies: new Map(),
 		count: 1
 	};
 
