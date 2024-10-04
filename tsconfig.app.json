@@ -40,5 +40,5 @@
 			"~shared/*": ["./shared/*"]
 		}
 	},
-	"include": ["src"]
+	"include": ["src", "src/shared/lib/util-types/.type.ts"]
 }
