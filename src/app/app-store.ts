@@ -11,13 +11,13 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { rootReducer } from './root-reducer';
-import { usersSlice } from '../entities/user/users.slice';
-import { usersTransform } from '../entities/user/users.transform';
+import { userSlice } from '../entities/user/user.slice';
+import { usersTransform } from '../entities/user/user.transform';
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: [usersSlice.name, 'favorites'],
+	whitelist: [userSlice.name],
 	transforms: [usersTransform]
 };
 
