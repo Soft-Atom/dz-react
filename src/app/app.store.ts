@@ -10,17 +10,14 @@ import {
 	REGISTER
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { rootReducer } from './root-reducer';
-import { userSlice } from '../entities/user/user.slice';
-import { usersTransform } from '../entities/user/user.transform';
-import { favoritesTransform } from '../entities/favorites/favorites.transform';
-import { favoritesSlice } from '../entities/favorites/favorites.slice';
+import { rootReducer } from './root.reducer';
+import { userSlice } from '~entities/user/user.slice';
+import { favoritesSlice } from '~entities/favorites/favorites.slice';
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: [userSlice.name],
-	transforms: [usersTransform, favoritesTransform]
+	blacklist: [userSlice.name, favoritesSlice.name]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

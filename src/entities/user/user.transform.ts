@@ -1,22 +1,14 @@
 import { createTransform } from 'redux-persist';
-import { IUserState, userSlice } from './user.slice';
+import { IUserState } from './user.slice';
 import { TSerializedMap } from '~shared/lib/util-types/serialized-map.type';
 
 export const usersTransform = createTransform<
-	IUserState,
-	TSerializedMap<IUserState>,
-	{ users: IUserState }
+	IUserState['appUsers'],
+	TSerializedMap<IUserState>['appUsers']
 >(
-	(inState) => ({
-		...inState,
-		appUsers: inState.appUsers.size ? Array.from(inState.appUsers.values()) : []
-	}),
-	(outState) => ({
-		...outState,
-		appUsers: new Map(outState.appUsers.map((u) => [u.login, u]))
-	}),
-
+	(inbound) => (inbound.size ? Array.from(inbound.values()) : []),
+	(outbound) => new Map(outbound.map((u) => [u.login, u])),
 	{
-		whitelist: [userSlice.name]
+		whitelist: ['appUsers']
 	}
 );

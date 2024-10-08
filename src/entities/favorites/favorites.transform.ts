@@ -5,7 +5,7 @@ import { TSerializedMap } from '~shared/lib/util-types/serialized-map.type';
 export const favoritesTransform = createTransform<
 	IFavoritesState,
 	TSerializedMap<IFavoritesState>,
-	{ favorites: IFavoritesState }
+	{ [favoritesSlice.name]: IFavoritesState }
 >(
 	(inState) => ({
 		...inState,

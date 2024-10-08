@@ -1,10 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { userSlice } from '../entities/user/user.slice';
+import { userPersistedReducer } from '../entities/user/uesr.persisted-reucer';
 
 export const rootReducer = combineReducers({
-	//persistReducer(
-	[userSlice.name]:
-		//{ key: userSlice.name, storage, transforms: [usersTransform] },
-		userSlice.reducer
-	//)
+	[userSlice.name]: userPersistedReducer
 });
