@@ -1,12 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TUser } from './user.types';
+import { TCurrentUser, TUser } from './user.types';
 
 export interface IUserState {
 	appUsers: Map<TUser['login'], TUser>;
-	currentUser?: TUser['login'];
+	currentUser: TCurrentUser | null;
+	loading: boolean;
+	erroMessage?: string;
 }
 
-const initialState: IUserState = { appUsers: new Map() };
+const initialState: IUserState = {
+	appUsers: new Map(),
+	currentUser: null,
+	loading: false
+};
 
 export const userSlice = createSlice({
 	name: 'users',
@@ -18,8 +24,11 @@ export const userSlice = createSlice({
 		) => {
 			state.appUsers.set(login, { login, passwordHash });
 		},
-		setCurrentUser: (state, { payload }: PayloadAction<TUser['login']>) => {
-			state.appUsers.set(login, { login, passwordHash });
+		setCurrentUser: (state, { payload }: PayloadAction<TCurrentUser>) => {
+			state.currentUser = payload;
+		},
+		logout: (state) => {
+			state.currentUser = null;
 		}
 	}
 });

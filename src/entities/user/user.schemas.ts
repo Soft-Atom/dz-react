@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { WRONG_PASSWORD_LENGTH } from './user.constants';
 
 export const UserSchema = z.object({
 	login: z.string(),
@@ -9,7 +10,7 @@ export const UserRegisterSchema = UserSchema.omit({
 	passwordHash: true
 }).extend({
 	password: z.string().min(6, {
-		message: 'Password must be at least 8 characters.'
+		message: WRONG_PASSWORD_LENGTH
 	})
 });
 

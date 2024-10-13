@@ -7,7 +7,8 @@ export const userPersistedReducer = persistReducer(
 	{
 		key: userSlice.name,
 		storage,
-		transforms: [usersTransform]
+		transforms: [usersTransform],
+		blacklist: ['loading', 'errorMessage']
 	},
 	userSlice.reducer
 );
