@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 import cn from 'classnames';
 
 function InputRef(
-	{ caption, error = false, iconLeft, iconRight, ...props }: IProps,
+	{ caption, error, iconLeft, iconRight, ...props }: IProps,
 	ref: ForwardedRef<HTMLInputElement>
 ) {
 	return (
@@ -13,7 +13,7 @@ function InputRef(
 				{...props}
 				ref={ref}
 				className={cn(styles['input'], {
-					[styles['input_error']]: error,
+					[styles['input_error']]: error !== undefined,
 					[styles['input_with-left-icon']]: iconLeft,
 					[styles['input_with-right-icon']]: iconRight
 				})}
@@ -36,6 +36,7 @@ function InputRef(
 					{iconRight}
 				</div>
 			)}
+			{error && <div className={styles['error-message']}>{error}</div>}
 		</label>
 	);
 }

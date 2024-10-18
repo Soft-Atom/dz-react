@@ -2,9 +2,11 @@ import { AppRoutes } from '~shared/lib/react-router';
 import { Anchor } from '~shared/ui/anchor';
 import { Icon, IconSet } from '~shared/ui/icon';
 import styles from './styles.module.css';
+import { useSelector } from 'react-redux';
+import { UserSelectors } from '../../entities/user';
 
 export function Header() {
-	const currentUser = null;
+	const currentUser = useSelector(UserSelectors.selecCurrentUser);
 	const favorites = {
 		movies: new Map(),
 		count: 1
@@ -31,14 +33,23 @@ export function Header() {
 						</Anchor>
 					</li>
 					{currentUser ? (
-						<li className={styles['menu-item']}>
-							<Anchor>Выйти</Anchor>
-						</li>
+						<>
+							<li className={styles['menu-item']}>
+								<Anchor
+									icon={<Icon src={IconSet.user} alt="Иконка пользователя" />}
+									iconRight={true}
+								>
+									{currentUser.login}
+								</Anchor>
+							</li>
+							<li className={styles['menu-item']}>
+								<Anchor>Выйти</Anchor>
+							</li>
+						</>
 					) : (
 						<li className={styles['menu-item']}>
 							<Anchor
 								href={AppRoutes.login()}
-								// icon={<></>}
 								icon={<Icon src={IconSet.login} alt="Иконка входа" />}
 								iconRight={true}
 							>

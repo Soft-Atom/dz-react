@@ -65,3 +65,8 @@
 .icon-right {
 	right: 16px;
 }
+
+.error-message {
+	font-size: var(--size-xs);
+	color: red;
+}

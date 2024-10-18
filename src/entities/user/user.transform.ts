@@ -1,6 +1,6 @@
 import { createTransform } from 'redux-persist';
 import { IUserState } from './user.slice';
-import { TSerializedMap } from '~shared/lib/util-types/serialized-map.type';
+import { TSerializedMap } from '~shared/lib/utils/serialized-map.type';
 
 export const usersTransform = createTransform<
 	IUserState['appUsers'],

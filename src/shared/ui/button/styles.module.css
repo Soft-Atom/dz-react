@@ -25,6 +25,11 @@
 	border: 2px solid var(--accent-color-hover);
 }
 
+.button-accent:disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 .button-rating {
 	gap: 4px;
 	color: var(--rating-color);

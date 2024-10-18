@@ -1,6 +1,6 @@
 import { createTransform } from 'redux-persist';
 import { IFavoritesState, favoritesSlice } from './favorites.slice';
-import { TSerializedMap } from '~shared/lib/util-types/serialized-map.type';
+import { TSerializedMap } from '~shared/lib/utils';
 
 export const favoritesTransform = createTransform<
 	IFavoritesState,

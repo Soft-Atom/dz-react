@@ -9,11 +9,13 @@ import { Header } from '../wigets/header';
 import { Icon, IconSet } from '../shared/ui/icon';
 import { MovieList } from '../wigets/movie/movie-list';
 import { Providers } from './providers';
+import { RegisterPage } from '../pages/user/register';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<Providers>
 			<Header />
+			<RegisterPage />
 			<MovieList />
 			<Heading Component={HeadingComponents.h1}>Заголовок 1</Heading>
 			<Heading Component={HeadingComponents.h2}>Заголовок 2</Heading>
@@ -23,7 +25,6 @@ createRoot(document.getElementById('root')!).render(
 			<Paragraph>Параграф размера с</Paragraph>
 
 			<Input type="text" caption="Ваше имя" />
-			<Input type="email" caption="email" error={true} />
 			<Input
 				type="text"
 				caption="Поиск"

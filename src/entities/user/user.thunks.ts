@@ -21,7 +21,7 @@ export const loginUserThunk = createAsyncThunk<
 	void,
 	TUserLogin,
 	{ state: TRootState }
->('user/register', async ({ login, password }, thunkAPI) => {
+>('user/login', async ({ login, password }, thunkAPI) => {
 	const {
 		users: { appUsers }
 	} = thunkAPI.getState();
