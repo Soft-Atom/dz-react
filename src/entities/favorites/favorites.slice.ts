@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TFavorites } from './favorites.types';
 
-export interface IFavoritesState {
-	favoriteMovies: Map<string, { id: string }>;
-}
-
-const initialState: IFavoritesState = {
-	favoriteMovies: new Map()
+const initialState: TFavorites = {
+	favorites: new Map()
 };
 
 export const favoritesSlice = createSlice({
@@ -14,4 +11,4 @@ export const favoritesSlice = createSlice({
 	reducers: {}
 });
 
-export const favoritessActions = favoritesSlice.actions;
+export const FavoritesActions = favoritesSlice.actions;

@@ -2,14 +2,14 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { Button } from '~shared/ui/button';
-import { Heading, HeadingComponents } from '../shared/ui/heading';
-import { Paragraph, ParagraphSizes } from '../shared/ui/paragraph';
-import { Input } from '../shared/ui/input';
-import { Header } from '../wigets/header';
-import { Icon, IconSet } from '../shared/ui/icon';
-import { MovieList } from '../wigets/movie/movie-list';
+import { Heading, HeadingComponents } from '~shared/ui/heading';
+import { Paragraph, ParagraphSizes } from '~shared/ui/paragraph';
+import { Input } from '~shared/ui/input';
+import { Header } from '~widgets/header';
+import { Icon, IconSet } from '~shared/ui/icon';
+import { MovieList } from '~widgets/movie/movie-list';
 import { Providers } from './providers';
-import { RegisterPage } from '../pages/user/register';
+import { RegisterPage } from '~pages/user/register';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>

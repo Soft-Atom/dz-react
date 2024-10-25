@@ -1,24 +1,14 @@
 import { createTransform } from 'redux-persist';
-import { IFavoritesState, favoritesSlice } from './favorites.slice';
-import { TSerializedMap } from '~shared/lib/utils';
+import type { TFavorites } from './favorites.types';
+import { TSerializedMap } from '~shared/lib/utility-types';
 
 export const favoritesTransform = createTransform<
-	IFavoritesState,
-	TSerializedMap<IFavoritesState>,
-	{ [favoritesSlice.name]: IFavoritesState }
+	TFavorites['favorites'],
+	TSerializedMap<TFavorites>['favorites']
 >(
-	(inState) => ({
-		...inState,
-		favoriteMovies: inState.favoriteMovies.size
-			? Array.from(inState.favoriteMovies.values())
-			: []
-	}),
-	(outState) => ({
-		...outState,
-		favoriteMovies: new Map(outState.favoriteMovies.map((f) => [f.id, f]))
-	}),
-
+	(inbound) => Array.from(inbound.values()),
+	(outState) => new Map(outState.map((f) => [f.id, f])),
 	{
-		whitelist: [favoritesSlice.name]
+		whitelist: ['favorites']
 	}
 );

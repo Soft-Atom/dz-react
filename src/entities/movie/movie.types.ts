@@ -1,7 +1,10 @@
 import { z } from 'zod';
-import { MovieSchema, MoviesSchema } from './movie.contracts';
+import {
+	MovieSchema,
+	MovieShortSchema,
+	MoviesShortSchema
+} from './movie.schemas';
 
-type TInferMapValue<T> = T extends Map<unknown, infer V> ? V : never;
 export type TMovie = z.infer<typeof MovieSchema>;
-export type TMovies = z.infer<typeof MoviesSchema>;
-export type TMovieShort = TInferMapValue<TMovies>;
+export type TMovieShort = z.infer<typeof MovieShortSchema>;
+export type TMoviesShort = z.infer<typeof MoviesShortSchema>;

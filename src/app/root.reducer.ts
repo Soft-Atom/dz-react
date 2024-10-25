@@ -1,7 +1,13 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { userSlice } from '../entities/user/user.slice';
-import { userPersistedReducer } from '../entities/user/uesr.persisted-reucer';
+import { userSlice, userPersistedReducer } from '~entities/users';
+import { authPersistedReducer, authSlice } from '~entities/auth';
+import {
+	favoritesSlice,
+	favoritesPersistedReducer
+} from '../entities/favorites';
 
 export const rootReducer = combineReducers({
-	[userSlice.name]: userPersistedReducer
+	[userSlice.name]: userPersistedReducer,
+	[authSlice.name]: authPersistedReducer,
+	[favoritesSlice.name]: favoritesPersistedReducer
 });

@@ -12,15 +12,16 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { enableMapSet } from 'immer';
 import { rootReducer } from './root.reducer';
-import { userSlice } from '~entities/user/user.slice';
-import { favoritesSlice } from '~entities/favorites/favorites.slice';
+import { userSlice } from '~entities/users';
+import { favoritesSlice } from '~entities/favorites';
+import { authSlice } from '~entities/auth';
 
 enableMapSet();
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	blacklist: [userSlice.name, favoritesSlice.name]
+	blacklist: [userSlice.name, authSlice.name]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
