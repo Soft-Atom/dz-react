@@ -4,13 +4,11 @@ import { Anchor } from '~shared/ui/anchor';
 import { Icon, IconSet } from '~shared/ui/icon';
 import styles from './styles.module.css';
 import { AuthSelectors } from '../../entities/auth';
+import { FavoritesSelectors } from '../../entities/favorites';
 
 export function Header() {
 	const currentUser = useSelector(AuthSelectors.selectCurrentUser);
-	const favorites = {
-		movies: new Map(),
-		count: 1
-	};
+	const favorites = useSelector(FavoritesSelectors.selectAll);
 
 	return (
 		<header className={styles['wrap']}>
@@ -25,9 +23,9 @@ export function Header() {
 					<li className={styles['menu-item']}>
 						<Anchor href={AppRoutes.favorites()}>
 							Мои фильмы
-							{favorites.count > 0 && (
+							{favorites.size > 0 && (
 								<span className={styles['favorites-count']}>
-									{favorites.count}
+									{favorites.size}
 								</span>
 							)}
 						</Anchor>

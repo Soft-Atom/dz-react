@@ -4,7 +4,7 @@ import { TUser } from './users.types';
 //правильно ли я тут сделал?
 export const selectAll = createSelector(
 	(state: TRootState) => state.users.appUsers,
-	(appUsers) => Array.from(appUsers.values())
+	(appUsers) => appUsers.values()
 );
 // и тут
 export const selecByLogin = createSelector(
