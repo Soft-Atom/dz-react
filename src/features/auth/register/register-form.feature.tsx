@@ -2,8 +2,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '~shared/ui/input';
 import { Button } from '~shared/ui/button';
-import { useAppDispatch } from '~shared/lib/redux/hooks';
+import { useAppDispatch, useThunk } from '~shared/lib/redux';
+import { AuthActions } from '~entities/auth/auth.slice';
 import { AuthSchemas, AuthThunks, AuthTypes } from '~entities/auth';
+import { Paragraph, ParagraphSizes } from '../../../shared/ui/paragraph';
 
 export function RegisterForm() {
 	const dispatch = useAppDispatch();
@@ -11,7 +13,7 @@ export function RegisterForm() {
 	const {
 		register,
 		handleSubmit,
-		// setError,
+		setError: se,
 		formState: { errors, isDirty, isValid }
 	} = useForm<AuthTypes.TRegister>({
 		mode: 'onTouched',
@@ -19,34 +21,45 @@ export function RegisterForm() {
 		defaultValues: { login: '', password: '' }
 	});
 
-	const canSubmit = [isDirty, isValid].every(Boolean);
+	const { fn: registerUser, isLoading, error } = useThunk(AuthThunks.register);
 
-	console.log(errors);
+	const canSubmit = [isDirty, isValid, !isLoading].every(Boolean);
 
 	const onSubmit = async (registerData: AuthTypes.TRegister) => {
-		await dispatch(AuthThunks.register(registerData));
+		const createdUser = await registerUser(registerData);
+		if (error) {
+			se('root', { message: error.message });
+		}
+		if (createdUser) {
+			dispatch(AuthActions.login(createdUser));
+		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Input
-				caption="Имя пользователя"
-				{...register('login')}
-				error={errors.login?.message}
-			/>
-			<Input
-				caption="Пароль"
-				type="password"
-				{...register('password')}
-				error={errors.password?.message}
-			/>
-			<Input
-				caption="Подтверждение пароля"
-				type="password"
-				{...register('confirmPassword')}
-				error={errors.confirmPassword?.message}
-			/>
-			<Button disabled={!canSubmit}>Зарегистрироваться</Button>
-		</form>
+		<>
+			{errors.root?.type}
+			<Paragraph size={ParagraphSizes.m}>{error?.message}</Paragraph>
+			<div>{errors.root?.message}</div>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Input
+					caption="Имя пользователя"
+					{...register('login')}
+					error={errors.login?.message}
+				/>
+				<Input
+					caption="Пароль"
+					type="password"
+					{...register('password')}
+					error={errors.password?.message}
+				/>
+				<Input
+					caption="Подтверждение пароля"
+					type="password"
+					{...register('confirmPassword')}
+					error={errors.confirmPassword?.message}
+				/>
+				<Button disabled={!canSubmit}>Зарегистрироваться</Button>
+			</form>
+		</>
 	);
 }
