@@ -14,14 +14,13 @@ import { enableMapSet } from 'immer';
 import { rootReducer } from './root.reducer';
 import { userSlice } from '~entities/users';
 import { favoritesSlice } from '~entities/favorites';
-import { authSlice } from '~entities/auth';
 
 enableMapSet();
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	blacklist: [userSlice.name, authSlice.name]
+	blacklist: [userSlice.name, favoritesSlice.name]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -32,7 +31,7 @@ export const appStore = configureStore({
 		getDefaultMiddleware({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-				ignoredPaths: [userSlice.reducerPath, favoritesSlice.reducerPath]
+				ignoredPaths: [userSlice.reducerPath]
 			}
 		})
 });

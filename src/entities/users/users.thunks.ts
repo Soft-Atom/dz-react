@@ -1,14 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { genSalt, hash } from 'bcryptjs';
 import { AppError, AppErrors } from '~shared/lib/app-error';
-import { TAddUser, TUser } from './users.types';
+import { TRegister, TUser } from './users.types';
 
-export const addUser = createAsyncThunk<TUser, TAddUser, { state: TRootState }>(
+export const registerThunk = createAsyncThunk<
+	TUser | undefined,
+	TRegister,
+	TThunkApiConfig
+>(
 	'user/addUser',
 	async ({ password, favorites = new Map(), ...addUserData }, thunkAPI) => {
-		const { users } = thunkAPI.getState();
-		if (users.appUsers.has(addUserData.login))
-			throw new AppError(AppErrors.USER.ALREADY_EXISTS);
+		const {
+			users: { appUsers }
+		} = thunkAPI.getState();
+		if (appUsers.has(addUserData.login)) {
+			thunkAPI.rejectWithValue(new AppError(AppErrors.USER.ALREADY_EXISTS));
+			// return null;
+		}
 		try {
 			const passwordHash = await hash(password, await genSalt(10));
 			return {
@@ -18,7 +26,8 @@ export const addUser = createAsyncThunk<TUser, TAddUser, { state: TRootState }>(
 			};
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (_) {
-			throw new AppError(AppErrors.USER.CREATE_ERROR);
+			thunkAPI.rejectWithValue(new AppError(AppErrors.USER.CREATE_ERROR));
+			// return null;
 		}
 	}
 );

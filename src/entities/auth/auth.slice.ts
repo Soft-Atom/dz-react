@@ -3,13 +3,10 @@ import { TCurrentUser } from './auth.types';
 
 export interface IAuthState {
 	currentUser: TCurrentUser | null;
-	loading: boolean;
-	erroMessage?: string;
 }
 
 const initialState: IAuthState = {
-	currentUser: null,
-	loading: false
+	currentUser: null
 };
 
 export const authSlice = createSlice({
@@ -18,13 +15,9 @@ export const authSlice = createSlice({
 	reducers: {
 		login: (state, { payload }: PayloadAction<TCurrentUser>) => {
 			state.currentUser = payload;
-			state.loading = false;
-			state.erroMessage = undefined;
 		},
 		logout: (state) => {
 			state.currentUser = null;
-			state.loading = false;
-			state.erroMessage = undefined;
 		}
 	}
 });

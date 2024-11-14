@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TUser } from './users.types';
-import { addUser } from './users.thunks';
+import { registerThunk } from './users.thunks';
 
 export interface IUserState {
 	appUsers: Map<TUser['login'], TUser>;
@@ -15,7 +15,7 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(addUser.fulfilled, (state, { payload: newUser }) => {
+		builder.addCase(registerThunk.fulfilled, (state, { payload: newUser }) => {
 			state.appUsers.set(newUser.login, newUser);
 		});
 	}
