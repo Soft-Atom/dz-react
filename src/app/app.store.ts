@@ -31,7 +31,8 @@ export const appStore = configureStore({
 		getDefaultMiddleware({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-				ignoredPaths: [userSlice.reducerPath]
+				ignoredActionPath: ['payload.favorites'],
+				ignoredPaths: [userSlice.reducerPath, favoritesSlice.reducerPath]
 			}
 		})
 });
