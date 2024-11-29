@@ -1,10 +1,10 @@
 import { createTransform } from 'redux-persist';
-import { IUserState } from './users.slice';
+import { IAppDataState } from './app-data.slice';
 import { TSerializedMap } from '~shared/lib/utility-types/serialized-map.type';
 
-export const usersTransform = createTransform<
-	IUserState['appUsers'],
-	TSerializedMap<IUserState>['appUsers']
+export const appDataTransform = createTransform<
+	IAppDataState['users'],
+	TSerializedMap<IAppDataState>['users']
 >(
 	(inbound) =>
 		Array.from(inbound.values()).map(({ favorites, ...uData }) => ({
@@ -19,6 +19,6 @@ export const usersTransform = createTransform<
 			])
 		),
 	{
-		whitelist: ['appUsers']
+		whitelist: ['users']
 	}
 );

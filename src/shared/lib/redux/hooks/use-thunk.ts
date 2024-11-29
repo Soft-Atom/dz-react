@@ -1,7 +1,7 @@
 import { AsyncThunk } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { useAppDispatch } from '~shared/lib/redux';
-import { AppError, AppErrors } from '~shared/lib/app-error';
+import { AppError, handleAppError } from '~shared/lib/app-error';
 
 export const useThunk = <TReturned, TThunkArg>(
 	thunk: AsyncThunk<TReturned, TThunkArg, TThunkApiConfig>
@@ -19,11 +19,9 @@ export const useThunk = <TReturned, TThunkArg>(
 		if (thunk.fulfilled.match(payloadRes)) {
 			return payloadRes.payload;
 		}
-		if (payloadRes.payload) {
-			setError(new AppError(payloadRes.payload));
-			return;
-		}
-		setError(new AppError(AppErrors.COMMON.UNEXPECTED));
+		const appError = new AppError(handleAppError(payloadRes.payload));
+		setError(appError);
+		return null;
 	};
 	return { fn, isLoading, error };
 };

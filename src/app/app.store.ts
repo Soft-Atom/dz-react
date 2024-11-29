@@ -12,15 +12,16 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { enableMapSet } from 'immer';
 import { rootReducer } from './root.reducer';
-import { userSlice } from '~entities/users';
+import { appDataSlice } from '~entities/app-data';
 import { favoritesSlice } from '~entities/favorites';
+import { authSlice } from '../entities/auth';
 
 enableMapSet();
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	blacklist: [userSlice.name, favoritesSlice.name]
+	whiteList: [authSlice.name]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -32,7 +33,7 @@ export const appStore = configureStore({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 				ignoredActionPath: ['payload.favorites'],
-				ignoredPaths: [userSlice.reducerPath, favoritesSlice.reducerPath]
+				ignoredPaths: [appDataSlice.reducerPath, favoritesSlice.reducerPath]
 			}
 		})
 });

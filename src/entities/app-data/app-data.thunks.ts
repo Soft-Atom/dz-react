@@ -1,15 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { genSalt, hash } from 'bcryptjs';
-import { AppErrors } from '~shared/lib/app-error';
-import { TAddUser, TUser } from './users.types';
+import { AppErrors, handleAppError } from '~shared/lib/app-error';
+import {
+	TAddUser,
+	TPersistedUser,
+	TRegisterUser,
+	TUser
+} from './app-data.types';
 
-export const addUser = createAsyncThunk<TUser, TAddUser, TThunkApiConfig>(
+export const addUser = createAsyncThunk<
+	TPersistedUser,
+	TAddUser,
+	TThunkApiConfig
+>(
 	'user/addUser',
 	async ({ password, favorites = new Map(), ...addUserData }, thunkAPI) => {
 		const {
-			users: { appUsers }
+			appData: { users }
 		} = thunkAPI.getState();
-		if (appUsers.has(addUserData.login)) {
+		if (users.has(addUserData.login)) {
 			return thunkAPI.rejectWithValue(AppErrors.USER.ALREADY_EXISTS);
 		}
 		try {
@@ -24,6 +33,20 @@ export const addUser = createAsyncThunk<TUser, TAddUser, TThunkApiConfig>(
 		}
 	}
 );
+
+export const registerUser = createAsyncThunk<
+	TUser,
+	TRegisterUser,
+	TThunkApiConfig
+>('auth/register', async (registerData, thunkAPI) => {
+	const payloadRes = await thunkAPI.dispatch(addUser(registerData));
+	if (addUser.fulfilled.match(payloadRes)) {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { passwordHash, ...currentUser } = payloadRes.payload;
+		return currentUser;
+	}
+	return thunkAPI.rejectWithValue(handleAppError(payloadRes.payload));
+});
 
 // export const loginUserThunk = createAsyncThunk<
 // 	void,

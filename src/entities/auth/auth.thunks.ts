@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { UserThunks } from '~entities/users/@x/auth';
+import { UserThunks } from '~entities/app-data/@x/auth';
 import { TCurrentUser, TRegister } from './auth.types';
 
 export const register = createAsyncThunk<

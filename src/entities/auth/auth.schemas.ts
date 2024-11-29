@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UserSchemas } from '~entities/users/@x/auth';
+import { UserSchemas } from '~entities/app-data/@x/auth';
 import { AppErrors } from '../../shared/lib/app-error';
 
 export const RegisterSchema = UserSchemas.AddUserSchema.omit({
