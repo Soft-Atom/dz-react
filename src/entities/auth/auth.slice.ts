@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TCurrentUser } from './auth.types';
+import { register } from './auth.thunks';
 
 export interface IAuthState {
 	currentUser: TCurrentUser | null;
@@ -19,6 +20,11 @@ export const authSlice = createSlice({
 		logout: (state) => {
 			state.currentUser = null;
 		}
+	},
+	extraReducers: (builder) => {
+		builder.addCase(register.fulfilled, (state, { payload }) => {
+			state.currentUser = payload;
+		});
 	}
 });
 

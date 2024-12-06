@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TFavorites } from './favorites.types';
+import { MovieTypes } from '../movie/@x/favorites';
 
 const initialState: TFavorites = {
 	favorites: new Map()
@@ -8,7 +9,18 @@ const initialState: TFavorites = {
 export const favoritesSlice = createSlice({
 	name: 'favorites',
 	initialState,
-	reducers: {}
+	reducers: {
+		toogleFavorites: (
+			state,
+			{ payload: movieShort }: PayloadAction<MovieTypes.TMovieShort>
+		) => {
+			if (state.favorites.has(movieShort.id)) {
+				state.favorites.delete(movieShort.id);
+			} else {
+				state.favorites.set(movieShort.id, movieShort);
+			}
+		}
+	}
 });
 
 export const FavoritesActions = favoritesSlice.actions;

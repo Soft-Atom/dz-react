@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { UserTypes } from '~entities/app-data/@x/auth';
+import { AppDataTypes } from '~entities/app-data/@x/auth';
 import { RegisterSchema } from './auth.schemas';
 
 export type TCurrentUser = Omit<
-	UserTypes.TPersistedUser,
+	AppDataTypes.TPersistedUser,
 	'passwordHash' | 'favorites'
 >;
 export type TRegister = z.infer<typeof RegisterSchema>;

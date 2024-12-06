@@ -38,7 +38,10 @@ export const registerUser = createAsyncThunk<
 	TUser,
 	TRegisterUser,
 	TThunkApiConfig
->('auth/register', async (registerData, thunkAPI) => {
+>('auth/register', async ({ confirmPassword, ...registerData }, thunkAPI) => {
+	if (confirmPassword !== registerData.password) {
+		thunkAPI.rejectWithValue(AppErrors.AUTH.WRONG_CONFIRM_PASSWORD);
+	}
 	const payloadRes = await thunkAPI.dispatch(addUser(registerData));
 	if (addUser.fulfilled.match(payloadRes)) {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars

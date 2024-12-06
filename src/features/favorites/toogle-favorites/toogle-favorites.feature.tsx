@@ -1,17 +1,48 @@
+import { AuthSelectors } from '~entities/auth';
+import { FavoritesActions, FavoritesSelectors } from '~entities/favorites';
 import { Button, ButtonAppearance } from '~shared/ui/button';
-import type { IProps } from './interfaces';
 import { Icon, IconSet } from '~shared/ui/icon';
-import { useAppSelector } from '../../../shared/lib/redux';
-import { FavoritesSelectors } from '../../../entities/favorites';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '~shared/lib/redux';
+import type { IProps } from './interfaces';
+import { AppDataActions } from '~entities/app-data/app-data.slice';
+import { useCallback } from 'react';
 
-export function ToogleFavorites({ movieId }: IProps) {
-	const isInFavorites = useSelector(
-		FavoritesSelectors.selectHasMovie(_, movieId)
+export function ToogleFavoritesButton({ movieShort }: IProps) {
+	const dispatch = useAppDispatch();
+	const currentUser = useAppSelector(AuthSelectors.selectCurrentUser);
+	const isInFavorited = useAppSelector((state) =>
+		FavoritesSelectors.selectHasMovie(state, movieShort.id)
+	);
+
+	const { icon, appearance, text } = isInFavorited
+		? {
+				icon: IconSet.favorited,
+				appearance: ButtonAppearance.favorited,
+				text: 'В избраном'
+		  }
+		: {
+				icon: IconSet.like,
+				appearance: ButtonAppearance.like,
+				text: 'В избранное'
+		  };
+	const onClick = useCallback(
+		(e: React.MouseEvent<HTMLButtonElement>) => {
+			e.preventDefault();
+			dispatch(FavoritesActions.toogleFavorites(movieShort));
+			if (currentUser) {
+				dispatch(
+					AppDataActions.toogleFavorites({
+						userLogin: currentUser.login,
+						movie: movieShort
+					})
+				);
+			}
+		},
+		[currentUser, movieShort, dispatch]
 	);
 	return (
-		<Button appearance={ButtonAppearance.rating}>
-			<Icon src={IconSet.star} />
+		<Button appearance={appearance} onClick={onClick}>
+			<Icon src={icon} /> {text}
 		</Button>
 	);
 }

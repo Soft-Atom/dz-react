@@ -21,7 +21,7 @@ enableMapSet();
 const persistConfig = {
 	key: 'root',
 	storage,
-	whiteList: [authSlice.name]
+	whitelist: [authSlice.name]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

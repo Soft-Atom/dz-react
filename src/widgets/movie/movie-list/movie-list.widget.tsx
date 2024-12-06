@@ -1,4 +1,5 @@
 import { transformMoviesDtoToMovies } from '../../../entities/movie/movie.lib';
+import { ToogleFavoritesButton } from '../../../features/favorites/toogle-favorites/toogle-favorites.feature';
 import { MovieCard } from '../movie-card';
 import type { IProps } from './interfaces';
 import styles from './styles.module.css';
@@ -17,7 +18,7 @@ export function MovieList({}: IProps) {
 					key={m.id}
 					movieShort={m}
 					ratingAction={<SetRaiting movieShort={m} />}
-					favoriteAction={<>ghbdtn</>}
+					favoriteAction={<ToogleFavoritesButton movieShort={m} />}
 				/>
 			))}
 		</div>
