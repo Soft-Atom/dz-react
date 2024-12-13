@@ -1,14 +1,14 @@
-import { useSelector } from 'react-redux';
 import { AppRoutes } from '~shared/lib/react-router';
 import { Anchor } from '~shared/ui/anchor';
 import { Icon, IconSet } from '~shared/ui/icon';
 import styles from './styles.module.css';
 import { AuthSelectors } from '../../entities/auth';
 import { FavoritesSelectors } from '../../entities/favorites';
+import { useAppSelector } from '~shared/lib/redux';
 
 export function Header() {
-	const currentUser = useSelector(AuthSelectors.selectCurrentUser);
-	const favorites = useSelector(FavoritesSelectors.selectAll);
+	const currentUser = useAppSelector(AuthSelectors.selectCurrentUser);
+	const favorites = useAppSelector(FavoritesSelectors.selectAll);
 
 	return (
 		<header className={styles['wrap']}>

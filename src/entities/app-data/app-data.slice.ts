@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TPersistedUser, TToogleUserFavorites } from './app-data.types';
+import {
+	TAddFavoritesToUser,
+	TPersistedUser,
+	TToogleUserFavorite
+} from './app-data.types';
 import { addUser } from './app-data.thunks';
 
 export interface IAppDataState {
@@ -16,7 +20,7 @@ export const appDataSlice = createSlice({
 	reducers: {
 		toogleFavorites: (
 			state,
-			{ payload: { userLogin, movie } }: PayloadAction<TToogleUserFavorites>
+			{ payload: { userLogin, movie } }: PayloadAction<TToogleUserFavorite>
 		) => {
 			const user = state.users.get(userLogin);
 			if (!user) return;
@@ -25,6 +29,14 @@ export const appDataSlice = createSlice({
 			} else {
 				user.favorites.set(movie.id, movie);
 			}
+		},
+		addFavorites: (
+			state,
+			{ payload: { userLogin, favorites } }: PayloadAction<TAddFavoritesToUser>
+		) => {
+			const user = state.users.get(userLogin);
+			if (!user) return;
+			favorites.forEach((v, k) => user.favorites.set(k, v));
 		}
 	},
 	extraReducers: (builder) => {

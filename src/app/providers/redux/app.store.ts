@@ -14,7 +14,7 @@ import { enableMapSet } from 'immer';
 import { rootReducer } from './root.reducer';
 import { appDataSlice } from '~entities/app-data';
 import { favoritesSlice } from '~entities/favorites';
-import { authSlice } from '../entities/auth';
+import { authSlice } from '~entities/auth';
 
 enableMapSet();
 

@@ -1,6 +1,10 @@
-import { IProps } from './interfaces';
-import { ReduxProvider } from './redux.provider';
+import { AppRouterProvider } from './react-router/app-router.provider';
+import { ReduxProvider } from './redux/redux.provider';
 
-export function Providers({ children }: IProps) {
-	return <ReduxProvider>{children}</ReduxProvider>;
+export function Providers() {
+	return (
+		<ReduxProvider>
+			<AppRouterProvider />
+		</ReduxProvider>
+	);
 }

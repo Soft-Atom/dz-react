@@ -12,7 +12,7 @@ export const PersistedUserSchema = UserSchema.extend({
 	passwordHash: z.string()
 });
 
-export const AddUserSchema = UserSchema.partial({ favorites: true }).extend({
+export const AddUserSchema = UserSchema.omit({ favorites: true }).extend({
 	password: z.string().min(4)
 });
 

@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
-import { appPersistor, appStore } from '../app.store';
+import { appPersistor, appStore } from './app.store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { IProps } from './interfaces';
+import { IProps } from '../interfaces';
 
 export function ReduxProvider({ children }: IProps) {
 	return (

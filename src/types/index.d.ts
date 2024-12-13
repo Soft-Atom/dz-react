@@ -3,7 +3,7 @@ declare module '*.module.css' {
 	export default content;
 }
 
-type TStore = typeof import('~app/app.store').appStore;
+type TStore = typeof import('~app/providers/redux/app.store').appStore;
 type TAppErors = import('~shared/lib/app-error').TAppErors;
 
 declare type TRootState = ReturnType<TStore['getState']>;

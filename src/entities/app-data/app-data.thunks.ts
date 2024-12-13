@@ -12,27 +12,24 @@ export const addUser = createAsyncThunk<
 	TPersistedUser,
 	TAddUser,
 	TThunkApiConfig
->(
-	'user/addUser',
-	async ({ password, favorites = new Map(), ...addUserData }, thunkAPI) => {
-		const {
-			appData: { users }
-		} = thunkAPI.getState();
-		if (users.has(addUserData.login)) {
-			return thunkAPI.rejectWithValue(AppErrors.USER.ALREADY_EXISTS);
-		}
-		try {
-			const passwordHash = await hash(password, await genSalt(10));
-			return {
-				passwordHash,
-				favorites,
-				...addUserData
-			};
-		} catch {
-			return thunkAPI.rejectWithValue(AppErrors.USER.CREATE_ERROR);
-		}
+>('user/addUser', async ({ password, ...addUserData }, thunkAPI) => {
+	const {
+		appData: { users }
+	} = thunkAPI.getState();
+	if (users.has(addUserData.login)) {
+		return thunkAPI.rejectWithValue(AppErrors.USER.ALREADY_EXISTS);
 	}
-);
+	try {
+		const passwordHash = await hash(password, await genSalt(10));
+		return {
+			passwordHash,
+			favorites: new Map(),
+			...addUserData
+		};
+	} catch {
+		return thunkAPI.rejectWithValue(AppErrors.USER.CREATE_ERROR);
+	}
+});
 
 export const registerUser = createAsyncThunk<
 	TUser,

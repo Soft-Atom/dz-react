@@ -2,11 +2,15 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '~shared/ui/input';
 import { Button } from '~shared/ui/button';
-import { useThunk } from '~shared/lib/redux';
+import { useAppDispatch, useAppSelector, useThunk } from '~shared/lib/redux';
 import { AuthSchemas, AuthThunks, AuthTypes } from '~entities/auth';
-import { Paragraph, ParagraphSizes } from '../../../shared/ui/paragraph';
+import { Paragraph, ParagraphSizes } from '~shared/ui/paragraph';
+import { FavoritesSelectors } from '~entities/favorites';
+import { AppDataActions } from '~entities/app-data';
 
 export function RegisterForm() {
+	const dispatch = useAppDispatch();
+	const favorites = useAppSelector(FavoritesSelectors.selectAll);
 	const {
 		register,
 		handleSubmit,
@@ -22,7 +26,11 @@ export function RegisterForm() {
 	const canSubmit = [isDirty, isValid, !isLoading].every(Boolean);
 
 	const onSubmit = async (registerData: AuthTypes.TRegister) => {
-		await registerUser(registerData);
+		const newUser = await registerUser(registerData);
+		if (!newUser) return;
+		dispatch(
+			AppDataActions.addFavorites({ userLogin: newUser.login, favorites })
+		);
 	};
 
 	return (

@@ -1,10 +1,10 @@
 import { AuthSelectors } from '~entities/auth';
+import { AppDataActions } from '~entities/app-data';
 import { FavoritesActions, FavoritesSelectors } from '~entities/favorites';
 import { Button, ButtonAppearance } from '~shared/ui/button';
 import { Icon, IconSet } from '~shared/ui/icon';
 import { useAppDispatch, useAppSelector } from '~shared/lib/redux';
 import type { IProps } from './interfaces';
-import { AppDataActions } from '~entities/app-data/app-data.slice';
 import { useCallback } from 'react';
 
 export function ToogleFavoritesButton({ movieShort }: IProps) {
