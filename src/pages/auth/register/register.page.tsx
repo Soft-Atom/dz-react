@@ -4,7 +4,7 @@ import { RegisterForm } from '~features/auth/register';
 export function RegisterPage() {
 	return (
 		<>
-			<Heading Component={HeadingComponents.h1}>Регистрация</Heading>
+			<Heading component={HeadingComponents.h1}>Регистрация</Heading>
 			<RegisterForm />
 		</>
 	);

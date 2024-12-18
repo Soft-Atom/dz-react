@@ -4,10 +4,15 @@ export const AppRoutes = {
 	favorites: () => AppRoutes.root.concat('favorites/'),
 	search: () => AppRoutes.root.concat('search/'),
 	page404: () => AppRoutes.root.concat('404/'),
+	me: () => AppRoutes.root.concat('me/'),
 	auth: {
-		root: () => AppRoutes.root.concat('auth/'),
-		register: () => AppRoutes.auth.root().concat('register/'),
-		login: () => AppRoutes.auth.root().concat('login/')
+		path: 'auth/',
+		register: {
+			path: 'register/',
+			fullPath: () =>
+				AppRoutes.root.concat(AppRoutes.auth.path, AppRoutes.auth.register.path)
+		},
+		login: () => AppRoutes.auth.path.concat('login/')
 	},
 	movies: {
 		root: () => AppRoutes.root.concat('movies/'),
