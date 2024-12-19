@@ -12,7 +12,7 @@ import { MainSkeletomLayout } from '~pages/layouts';
 import { page404Route } from '~pages/page404';
 
 const MainLayout = lazy(() =>
-	import('~pages/layouts/main.layout').then((module) => ({
+	import('~pages/layouts/main.layout.ui.').then((module) => ({
 		default: module.MainLayout
 	}))
 );

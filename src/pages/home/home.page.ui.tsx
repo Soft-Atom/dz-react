@@ -1,5 +1,5 @@
-import { Heading } from '../../shared/ui/heading';
-import { Paragraph } from '../../shared/ui/paragraph';
+import { Heading } from '~shared/ui/heading';
+import { Paragraph } from '~shared/ui/paragraph';
 
 export function HomePage() {
 	return (
@@ -9,7 +9,6 @@ export function HomePage() {
 				Введите название фильма, сериала или мультфильма для поиска и добавления
 				в избранное.
 			</Paragraph>
-			;
 		</>
 	);
 }
