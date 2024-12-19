@@ -1,4 +1,5 @@
 import {
+	Api,
 	BaseQueryFn,
 	EndpointBuilder,
 	FetchArgs,
@@ -12,11 +13,11 @@ import { TMovie } from './movie.types';
 
 class MovieApi {
 	private readonly rootPath = '';
-	private readonly api: ;
+	private readonly api: Api<>;
 	constructor(api: typeof baseApi) {
-		this.api = api.injectEndpoints({
+		const a = api.injectEndpoints({
 			endpoints: (build) => ({
-				findOne: this.findOne(build)
+				findOne: this.findOneEndpoint(build)
 			})
 		});
 	}
@@ -45,7 +46,7 @@ class MovieApi {
 	}
 
 	findOne() {
-		const { useProductDetailsQuery } = this.api;
+		rethis.api;
 	}
 }
 
