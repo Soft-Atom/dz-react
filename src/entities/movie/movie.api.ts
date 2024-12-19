@@ -1,52 +1,42 @@
 import {
-	Api,
-	BaseQueryFn,
-	EndpointBuilder,
-	FetchArgs,
-	FetchBaseQueryError,
-	FetchBaseQueryMeta
-} from '@reduxjs/toolkit/query';
-import { baseApi } from '~shared/api/base-api';
+	baseApi,
+	TBaseApi,
+	TEndpointBuilder,
+	TExtendedApi
+} from '~shared/api/base-api';
 import { MovieContractsDtoTypes } from '~shared/api/movie';
 import { transformMovieDtoToMovie } from './movie.lib';
 import { TMovie } from './movie.types';
 
+type TMovieApiDefinitions = {
+	findOne: ReturnType<MovieApi['findOneEndpoint']>;
+};
+
 class MovieApi {
 	private readonly rootPath = '';
-	private readonly api: Api<>;
-	constructor(api: typeof baseApi) {
-		const a = api.injectEndpoints({
+	private readonly api: TExtendedApi<TBaseApi, TMovieApiDefinitions>;
+
+	constructor(api: TBaseApi) {
+		this.api = api.injectEndpoints({
 			endpoints: (build) => ({
 				findOne: this.findOneEndpoint(build)
 			})
 		});
 	}
 
-	private findOneEndpoint(
-		build: EndpointBuilder<
-			BaseQueryFn<
-				string | FetchArgs,
-				unknown,
-				FetchBaseQueryError,
-				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				{},
-				FetchBaseQueryMeta
-			>,
-			never,
-			'api'
-		>
-	) {
+	private findOneEndpoint(build: TEndpointBuilder<TBaseApi>) {
 		return build.query<TMovie, TMovie['id']>({
 			query: (movieId) => ({
-				url: `${this.rootPath}/${movieId}`
+				url: `${this.rootPath}/`,
+				params: { tt: movieId }
 			}),
 			transformResponse: (response: MovieContractsDtoTypes.TMovieDto) =>
 				transformMovieDtoToMovie.parse(response)
 		});
 	}
 
-	findOne() {
-		rethis.api;
+	findOne(id: TMovie['id']) {
+		return this.api.useFindOneQuery(id);
 	}
 }
 

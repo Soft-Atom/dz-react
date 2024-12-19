@@ -1,64 +1,13 @@
-import {
-	// Api,
-	// BaseQueryFn,
-	// coreModuleName,
-	createApi,
-	// FetchArgs,
-	fetchBaseQuery //,
-	// FetchBaseQueryError,
-	// FetchBaseQueryMeta
-} from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ConfigService } from '../../lib/config-service/config.service';
 
-const baseQuery = fetchBaseQuery({
-	baseUrl: 'url'
+export const baseQuery = fetchBaseQuery({
+	baseUrl: ConfigService.get('apiEndpoint')
 });
 
 export const baseApi = createApi({
+	tagTypes: ['tag1', 'tag2'],
 	reducerPath: 'api',
 	baseQuery: baseQuery,
 	endpoints: () => ({})
 });
-
-// export class AppApi {
-// 	static baseQuery: BaseQueryFn<
-// 		string | FetchArgs,
-// 		unknown,
-// 		FetchBaseQueryError,
-// 		object,
-// 		FetchBaseQueryMeta
-// 	>;
-// 	private static instance: Api<
-// 		typeof AppApi.baseQuery,
-// 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-// 		{},
-// 		'api',
-// 		never,
-// 		typeof coreModuleName
-// 	>;
-
-// 	private constructor() {
-// 		AppApi.baseQuery = fetchBaseQuery({
-// 			baseUrl: 'env.VITE_API_ENDPOINT'
-// 		});
-// 		AppApi.instance = createApi({
-// 			reducerPath: 'api',
-// 			baseQuery: AppApi.baseQuery,
-// 			endpoints: () => ({})
-// 		});
-
-// 	}
-
-// 	public static get() {
-// 		if (!AppApi.instance) new AppApi();
-// 		return this.baseQuery;
-// 	}
-
-// static readonly baseQuery = fetchBaseQuery({
-// 	baseUrl: 'env.VITE_API_ENDPOINT'
-// });
-// static readonly api = createApi({
-// 	reducerPath: 'api',
-// 	baseQuery: Api.baseQuery,
-// 	endpoints: () => ({})
-// });
-//}
