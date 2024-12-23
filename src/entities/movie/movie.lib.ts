@@ -1,7 +1,7 @@
-import { MovieContractsDto } from '~shared/api/movie';
+import { MovieContractsSchemas } from '~shared/api/movie';
 
 export const transformMovieDtoToMovie =
-	MovieContractsDto.MovieDtoSchema.transform(({ short, imdbId }) => {
+	MovieContractsSchemas.FindOneResponseSchema.transform(({ short, imdbId }) => {
 		const {
 			aggregateRating: { ratingValue },
 			'@type': type,
@@ -16,7 +16,7 @@ export const transformMovieDtoToMovie =
 	});
 
 export const transformMoviesDtoToMovies =
-	MovieContractsDto.MoviesDtoSchema.transform(({ description }) => ({
+	MovieContractsSchemas.FindManyResponseSchema.transform(({ description }) => ({
 		movies: new Map(
 			description.map((x) => {
 				const {

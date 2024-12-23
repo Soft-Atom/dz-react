@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { MovieContractsDto } from '~shared/api/movie';
+import { MovieContractsSchemas } from '~shared/api/movie';
 
-export const MovieSchema = MovieContractsDto.ShortSchema.omit({
+export const MovieSchema = MovieContractsSchemas.FindOneShortSchema.omit({
 	'@type': true,
 	aggregateRating: true
 }).extend({

@@ -9,7 +9,6 @@ export class ConfigService {
 	private static configSchema: TZodType<TConfig>;
 
 	private constructor() {
-		console.log(import.meta.env);
 		this.config = zodValidate(import.meta.env, ConfigService.configSchema);
 	}
 	public static get(key: keyof TConfig) {

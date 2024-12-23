@@ -4,39 +4,55 @@ import {
 	TEndpointBuilder,
 	TExtendedApi
 } from '~shared/api/base-api';
-import { MovieContractsDtoTypes } from '~shared/api/movie';
+import { MovieContractsTypes } from '~shared/api/movie';
 import { transformMovieDtoToMovie } from './movie.lib';
-import { TMovie } from './movie.types';
+import { TMovie, TMoviesShort } from './movie.types';
+import { zodValidate } from '../../shared/lib/validation/zod-validate.helper';
 
 type TMovieApiDefinitions = {
 	findOne: ReturnType<MovieApi['findOneEndpoint']>;
+	findMany: ReturnType<MovieApi['findManyEndpoint']>;
 };
 
-class MovieApi {
+export class MovieApi {
 	private readonly rootPath = '';
 	private readonly api: TExtendedApi<TBaseApi, TMovieApiDefinitions>;
 
 	constructor(api: TBaseApi) {
 		this.api = api.injectEndpoints({
 			endpoints: (build) => ({
-				findOne: this.findOneEndpoint(build)
+				findOne: this.findOneEndpoint(build),
+				findMany: this.findManyEndpoint(build)
 			})
 		});
 	}
 
 	private findOneEndpoint(build: TEndpointBuilder<TBaseApi>) {
-		return build.query<TMovie, TMovie['id']>({
-			query: (movieId) => ({
+		return build.query<TMovie, MovieContractsTypes.TMovieFindOneRequest>({
+			query: (params) => ({
 				url: `${this.rootPath}/`,
-				params: { tt: movieId }
+				params
 			}),
-			transformResponse: (response: MovieContractsDtoTypes.TMovieDto) =>
-				transformMovieDtoToMovie.parse(response)
+			transformResponse: (response: MovieContractsTypes.TFindOneResponse) =>
+				zodValidate(response, transformMovieDtoToMovie)
 		});
 	}
 
-	findOne(id: TMovie['id']) {
-		return this.api.useFindOneQuery(id);
+	private findManyEndpoint(build: TEndpointBuilder<TBaseApi>) {
+		return build.query<TMoviesShort, MovieContractsTypes.TMovieFindManyRequest>(
+			{
+				query: (params) => ({
+					url: `${this.rootPath}/`,
+					params
+				}),
+				transformResponse: (response: MovieContractsTypes.TFindOneResponse) =>
+					zodValidate(response, transformMovieDtoToMovie)
+			}
+		);
+	}
+
+	getEndpoints() {
+		return this.api.endpoints;
 	}
 }
 

@@ -1,6 +1,14 @@
 import { z } from 'zod';
 
-export const ShortSchema = z.object({
+export const FindOneRequestSchema = z.object({
+	tt: z.string().min(1)
+});
+
+export const FindManyRequestSchema = z.object({
+	q: z.string().min(1).default('Avengers: Endgame')
+});
+
+export const FindOneShortSchema = z.object({
 	name: z.string(),
 	description: z.string(),
 	aggregateRating: z.object({
@@ -17,25 +25,25 @@ export const ShortSchema = z.object({
 	//импорт из ревью в муви
 	review: z.object({
 		name: z.string(),
-		date: z.coerce.date(),
+		dateCreated: z.coerce.date(),
 		reviewBody: z.string()
 	})
 });
 
-export const MovieDtoSchema = z.object({
-	short: ShortSchema,
+export const FindOneResponseSchema = z.object({
+	short: FindOneShortSchema,
 	imdbId: z.string()
 });
 
-const MovieShortDtoSchema = z.object({
+const FindManyShortSchema = z.object({
 	'#IMDB_ID': z.string(),
 	'#TITLE': z.string(),
 	'#IMG_POSTER': z.string().optional().default('/movie-without-image.jpg'),
 	'#RANK': z.number()
 });
 
-export const MoviesDtoSchema = z.object({
+export const FindManyResponseSchema = z.object({
 	ok: z.boolean(),
-	description: z.array(MovieShortDtoSchema),
+	description: z.array(FindManyShortSchema),
 	error_code: z.number()
 });

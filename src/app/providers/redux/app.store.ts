@@ -15,6 +15,7 @@ import { rootReducer } from './root.reducer';
 import { appDataSlice } from '~entities/app-data';
 import { favoritesSlice } from '~entities/favorites';
 import { authSlice } from '~entities/auth';
+import { baseApi } from '~shared/api/base-api';
 
 enableMapSet();
 
@@ -35,7 +36,7 @@ export const appStore = configureStore({
 				ignoredActionPath: ['payload.favorites'],
 				ignoredPaths: [appDataSlice.reducerPath, favoritesSlice.reducerPath]
 			}
-		})
+		}).concat(baseApi.middleware)
 });
 
 export const appPersistor = persistStore(appStore);

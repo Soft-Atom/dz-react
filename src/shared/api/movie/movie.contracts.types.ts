@@ -1,5 +1,13 @@
 import { z } from 'zod';
-import { MovieDtoSchema, MoviesDtoSchema } from './movie.contracts';
+import {
+	FindOneResponseSchema,
+	FindManyResponseSchema,
+	FindManyRequestSchema,
+	FindOneRequestSchema
+} from './movie.contracts';
 
-export type TMovieDto = z.infer<typeof MovieDtoSchema>;
-export type TMoviesDto = z.infer<typeof MoviesDtoSchema>;
+export type TMovieFindOneRequest = z.infer<typeof FindOneRequestSchema>;
+export type TMovieFindManyRequest = z.infer<typeof FindManyRequestSchema>;
+
+export type TFindOneResponse = z.infer<typeof FindOneResponseSchema>;
+export type TFindManyResponse = z.infer<typeof FindManyResponseSchema>;

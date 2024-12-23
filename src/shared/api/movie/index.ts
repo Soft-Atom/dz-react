@@ -1,2 +1,2 @@
-export * as MovieContractsDto from './movie.contracts';
-export * as MovieContractsDtoTypes from './movie.contracts.types';
+export * as MovieContractsSchemas from './movie.contracts';
+export * as MovieContractsTypes from './movie.contracts.types';
