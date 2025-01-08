@@ -8,8 +8,6 @@ const HomePage = lazy(() =>
 	import('./home.page.ui').then((module) => ({ default: module.HomePage }))
 );
 
-console.log(homePageLoader);
-
 export const homeRoute: RouteObject = {
 	path: AppRoutes.home(),
 	element: (
@@ -17,5 +15,5 @@ export const homeRoute: RouteObject = {
 			<HomePage />
 		</Suspense>
 	),
-	loader: homePageLoader.loaderMovie.bind(homePageLoader)
+	loader: homePageLoader.loader.bind(homePageLoader)
 };

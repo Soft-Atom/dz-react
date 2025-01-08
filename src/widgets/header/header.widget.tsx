@@ -19,7 +19,7 @@ export function Header() {
 			<nav>
 				<ul className={styles['menu']}>
 					<li className={styles['menu-item']}>
-						<Anchor component={NavLink} to={AppRoutes.search()}>
+						<Anchor component={NavLink} to={AppRoutes.home()}>
 							Поиск фильмов
 						</Anchor>
 					</li>

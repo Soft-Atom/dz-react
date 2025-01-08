@@ -5,7 +5,7 @@ export const FindOneRequestSchema = z.object({
 });
 
 export const FindManyRequestSchema = z.object({
-	q: z.string().min(1).default('Avengers: Endgame')
+	q: z.string().min(3)
 });
 
 export const FindOneShortSchema = z.object({

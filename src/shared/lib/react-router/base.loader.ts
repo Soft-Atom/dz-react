@@ -4,21 +4,21 @@ import { EndpointDefinitions } from '@reduxjs/toolkit/query';
 export class BaseLoader {
 	private static dispatch: TAppDispatch;
 
-	protected static async loader<
-		TArg,
+	protected static async baseLoader<
+		TParams,
 		TagTypes extends string,
 		TRes,
 		TDefinitions extends EndpointDefinitions,
 		TContext
 	>({
 		endpoint,
-		arg,
+		params,
 		options,
 		request
-	}: TLoaderArg<TArg, TagTypes, TRes, TDefinitions, TContext>) {
-		const p = BaseLoader.dispatch(endpoint.initiate(arg, options));
-		request.signal.onabort = p.abort;
-		const res = await p;
+	}: TLoaderArg<TParams, TagTypes, TRes, TDefinitions, TContext>) {
+		const promise = BaseLoader.dispatch(endpoint.initiate(params, options));
+		request.signal.onabort = promise.abort;
+		const res = await promise;
 		const { data, isError, error } = res;
 		if (isError) {
 			console.error(error);

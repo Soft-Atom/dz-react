@@ -1,1 +1,5 @@
-export interface IProps {};
+import { MovieTypes } from '~entities/movie';
+
+export interface IProps {
+	data: MovieTypes.TMoviesShort;
+}

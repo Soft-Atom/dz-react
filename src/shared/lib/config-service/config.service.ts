@@ -1,5 +1,5 @@
 import { TConfig } from './config.service.types';
-import { ConfigSchema } from './config.schemas';
+import { ConfigSchema } from './env.schema';
 import { TZodType } from '../validation/zod.types';
 import { zodValidate } from '../validation/zod-validate.helper';
 

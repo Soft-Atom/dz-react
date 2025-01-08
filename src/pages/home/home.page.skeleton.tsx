@@ -1,3 +1,5 @@
+import { Heading } from '~shared/ui/heading';
+
 export function HomePageSkeleton() {
-	return <>Загрузка</>;
+	return <Heading>Тут должен быть скелет главной страницы</Heading>;
 }

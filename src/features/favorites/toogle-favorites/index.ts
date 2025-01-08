@@ -1,1 +1,1 @@
-export { ToogleFavoritesButton as ToogleFavorites } from './toogle-favorites.feature';
+export { ToogleFavoritesButton } from './toogle-favorites.feature';

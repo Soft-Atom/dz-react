@@ -5,9 +5,12 @@ import {
 	TExtendedApi
 } from '~shared/api/base-api';
 import { MovieContractsTypes } from '~shared/api/movie';
-import { transformMovieDtoToMovie } from './movie.lib';
+import {
+	transformMovieDtoToMovie,
+	transformMoviesDtoToMovies
+} from './movie.lib';
 import { TMovie, TMoviesShort } from './movie.types';
-import { zodValidate } from '../../shared/lib/validation/zod-validate.helper';
+import { zodValidate } from '~shared/lib/validation/zod-validate.helper';
 
 type TMovieApiDefinitions = {
 	findOne: ReturnType<MovieApi['findOneEndpoint']>;
@@ -45,8 +48,8 @@ export class MovieApi {
 					url: `${this.rootPath}/`,
 					params
 				}),
-				transformResponse: (response: MovieContractsTypes.TFindOneResponse) =>
-					zodValidate(response, transformMovieDtoToMovie)
+				transformResponse: (response: MovieContractsTypes.TFindManyResponse) =>
+					zodValidate(response, transformMoviesDtoToMovies)
 			}
 		);
 	}

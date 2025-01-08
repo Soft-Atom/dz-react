@@ -2,7 +2,6 @@ export const AppRoutes = {
 	root: '/',
 	home: () => AppRoutes.root,
 	favorites: () => AppRoutes.root.concat('favorites/'),
-	search: () => AppRoutes.root.concat('search/'),
 	page404: () => AppRoutes.root.concat('404/'),
 	me: () => AppRoutes.root.concat('me/'),
 	auth: {

@@ -1,3 +1,5 @@
+import { Heading } from '../../shared/ui/heading';
+
 export function MainLayoutSkeleton() {
-	return <>Загрузка</>;
+	return <Heading>Тут должен быть скелет лейаута</Heading>;
 }

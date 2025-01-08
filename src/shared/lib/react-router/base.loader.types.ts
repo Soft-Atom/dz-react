@@ -8,17 +8,17 @@ import { LoaderFunctionArgs } from 'react-router-dom';
 import { TBaseQuery } from '../../api/base-api';
 
 export type TLoaderArg<
-	TArg,
+	TParams,
 	TagTypes extends string,
 	TRes,
 	TDefinitions extends EndpointDefinitions,
 	TContext
 > = {
 	endpoint: ApiEndpointQuery<
-		QueryDefinition<TArg, TBaseQuery, TagTypes, TRes>,
+		QueryDefinition<TParams, TBaseQuery, TagTypes, TRes>,
 		TDefinitions
 	>;
-	arg: TArg;
+	params: TParams;
 	options?: StartQueryActionCreatorOptions;
 	request: LoaderFunctionArgs<TContext>['request'];
 };
