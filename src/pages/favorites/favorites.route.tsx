@@ -11,10 +11,10 @@ const FavoritesPage = lazy(() =>
 );
 
 export const homeRoute: RouteObject = {
-	path: AppRoutes.home(),
+	path: AppRoutes.favorites(),
 	element: (
 		<Suspense fallback={<FavoritesPageSkeleton />}>
-			<HomePage />
+			<FavoritesPage />
 		</Suspense>
 	),
 	loader: homePageLoader.loader.bind(homePageLoader)
