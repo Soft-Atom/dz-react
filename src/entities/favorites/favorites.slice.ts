@@ -19,6 +19,12 @@ export const favoritesSlice = createSlice({
 			} else {
 				state.favorites.set(movieShort.id, movieShort);
 			}
+		},
+		setFavorites: (
+			state,
+			{ payload: { favorites } }: PayloadAction<TFavorites>
+		) => {
+			state.favorites = favorites;
 		}
 	}
 });
