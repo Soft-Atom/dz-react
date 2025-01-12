@@ -22,9 +22,12 @@ export const favoritesSlice = createSlice({
 		},
 		setFavorites: (
 			state,
-			{ payload: { favorites } }: PayloadAction<TFavorites>
+			{ payload }: PayloadAction<TFavorites['favorites']>
 		) => {
-			state.favorites = favorites;
+			state.favorites = payload;
+		},
+		clearFavorites: (state) => {
+			state.favorites = initialState.favorites;
 		}
 	}
 });

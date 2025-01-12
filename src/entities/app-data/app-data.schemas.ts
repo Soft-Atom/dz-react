@@ -32,3 +32,5 @@ export const RegisterUserSchema = AddUserSchema.extend({
 		});
 	}
 });
+
+export const LoginSchema = AddUserSchema.pick({ login: true, password: true });

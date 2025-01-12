@@ -1,7 +1,10 @@
 export const AppRoutes = {
 	root: '/',
 	home: () => AppRoutes.root,
-	favorites: () => AppRoutes.root.concat('favorites/'),
+	favorites: {
+		path: 'favorites/',
+		fullPath: () => AppRoutes.root.concat(AppRoutes.favorites.path)
+	},
 	page404: () => AppRoutes.root.concat('404/'),
 	me: () => AppRoutes.root.concat('me/'),
 	auth: {
@@ -11,10 +14,16 @@ export const AppRoutes = {
 			fullPath: () =>
 				AppRoutes.root.concat(AppRoutes.auth.path, AppRoutes.auth.register.path)
 		},
-		login: () => AppRoutes.auth.path.concat('login/')
+		login: {
+			path: 'login/',
+			fullPath: () =>
+				AppRoutes.root.concat(AppRoutes.auth.path, AppRoutes.auth.login.path)
+		}
 	},
-	movies: {
-		root: () => AppRoutes.root.concat('movies/'),
-		byId: ({ id }: { id: string }) => AppRoutes.movies.root().concat(id, '/')
+	movie: {
+		path: 'movie/',
+		fullPath: () => AppRoutes.root.concat(AppRoutes.movie.path),
+		byId: ({ id }: { id: string }) =>
+			AppRoutes.root.concat(AppRoutes.movie.path, id, '/')
 	}
 } as const;

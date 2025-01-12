@@ -5,13 +5,15 @@ import {
 	AddUserSchema,
 	RegisterUserSchema,
 	PersistedUserSchema,
-	UserSchema
+	UserSchema,
+	LoginSchema
 } from './app-data.schemas';
 
 export type TUser = z.infer<typeof UserSchema>;
 export type TPersistedUser = z.infer<typeof PersistedUserSchema>;
 export type TAddUser = z.infer<typeof AddUserSchema>;
 export type TRegisterUser = z.infer<typeof RegisterUserSchema>;
+export type TLogin = z.infer<typeof LoginSchema>;
 
 export type TToogleUserFavorite = {
 	userLogin: TUser['login'];

@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { genSalt, hash } from 'bcryptjs';
+import { compare, genSalt, hash } from 'bcryptjs';
 import { AppErrors, handleAppError } from '~shared/lib/app-error';
 import {
 	TAddUser,
+	TLogin,
 	TPersistedUser,
 	TRegisterUser,
 	TUser
@@ -48,16 +49,18 @@ export const registerUser = createAsyncThunk<
 	return thunkAPI.rejectWithValue(handleAppError(payloadRes.payload));
 });
 
-// export const loginUserThunk = createAsyncThunk<
-// 	void,
-// 	TUserLogin,
-// 	{ state: TRootState }
-// >('user/login', async ({ login, password }, thunkAPI) => {
-// 	const {
-// 		users: { appUsers }
-// 	} = thunkAPI.getState();
-// 	const foundUser = appUsers.get(login);
-// 	if (!foundUser || !(await compare(password, foundUser.passwordHash)))
-// 		return thunkAPI.rejectWithValue({ errorMessage: WRONG_LOGIN_OR_PASSWORD });
-// 	thunkAPI.dispatch(usersActions.setCurrentUser(foundUser));
-// });
+export const loginUser = createAsyncThunk<TUser, TLogin, TThunkApiConfig>(
+	'auth/register',
+	async ({ login, password }, thunkAPI) => {
+		const {
+			appData: { users }
+		} = thunkAPI.getState();
+		const foundUser = users.get(login);
+		if (!foundUser || !(await compare(password, foundUser.passwordHash))) {
+			return thunkAPI.rejectWithValue(AppErrors.USER.WRONG_CRED);
+		}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { passwordHash, ...currentUser } = foundUser;
+		return currentUser;
+	}
+);

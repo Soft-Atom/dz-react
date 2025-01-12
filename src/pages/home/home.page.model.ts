@@ -11,18 +11,24 @@ const HomePageParamsSchema = MovieContractsSchemas.FindManyRequestSchema.extend(
 );
 
 class HomePageLoader extends BaseLoader {
-	ArgsSchema = z.object({
-		request: z.custom<Request>(),
-		params: HomePageParamsSchema,
-		context: z.any()
-	});
+	ArgsSchema;
+	SearchParamsSchema;
 
 	constructor(private readonly movieApi: MovieApi) {
 		super();
+		this.ArgsSchema = z.object({
+			request: z.custom<Request>(),
+			context: z.any()
+		});
+		this.SearchParamsSchema = HomePageParamsSchema;
 	}
 
 	async loader(args: LoaderFunctionArgs) {
-		const { params, request } = this.ArgsSchema.parse(args);
+		const { request } = this.ArgsSchema.parse(args);
+		const searchParams = new URL(request.url).searchParams;
+		const params = this.SearchParamsSchema.parse(
+			Object.fromEntries(searchParams.entries())
+		);
 		const endpoint = this.movieApi.getEndpoints().findMany;
 		const movies = BaseLoader.baseLoader({ endpoint, params, request });
 		// const movies = new Promise<MovieTypes.TMoviesShort | undefined>((res) => {
@@ -35,7 +41,6 @@ class HomePageLoader extends BaseLoader {
 		// 		res(data);
 		// 	}, 10000);
 		// });
-
 		return { data: movies };
 	}
 }

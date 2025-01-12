@@ -3,13 +3,22 @@ import { Anchor } from '~shared/ui/anchor';
 import { Icon, IconSet } from '~shared/ui/icon';
 import styles from './styles.module.css';
 import { AuthSelectors } from '../../entities/auth';
-import { FavoritesSelectors } from '../../entities/favorites';
-import { useAppSelector } from '~shared/lib/redux';
+import { FavoritesActions } from '../../entities/favorites';
+import { useAppDispatch, useAppSelector } from '~shared/lib/redux';
 import { NavLink } from 'react-router-dom';
+import { LogoutButton } from '../../features/auth/logout';
+import { AppDataSelectors } from '../../entities/app-data';
+import { FavoritesLink } from '../../entities/favorites/ui/favorites.link';
 
 export function Header() {
+	const dispatch = useAppDispatch();
 	const currentUser = useAppSelector(AuthSelectors.selectCurrentUser);
-	const favorites = useAppSelector(FavoritesSelectors.selectAll);
+	const userFavorites = useAppSelector((state) =>
+		AppDataSelectors.selectUserFavorites(state, currentUser?.login || '')
+	);
+	if (currentUser) {
+		dispatch(FavoritesActions.setFavorites(userFavorites.favorites));
+	}
 
 	return (
 		<header className={styles['wrap']}>
@@ -24,14 +33,7 @@ export function Header() {
 						</Anchor>
 					</li>
 					<li className={styles['menu-item']}>
-						<Anchor component={NavLink} to={AppRoutes.favorites()}>
-							Мои фильмы
-							{favorites.size > 0 && (
-								<span className={styles['favorites-count']}>
-									{favorites.size}
-								</span>
-							)}
-						</Anchor>
+						<FavoritesLink />
 					</li>
 					{currentUser ? (
 						<>
@@ -46,16 +48,14 @@ export function Header() {
 								</Anchor>
 							</li>
 							<li className={styles['menu-item']}>
-								<Anchor component={NavLink} to="/">
-									Выйти
-								</Anchor>
+								<LogoutButton />
 							</li>
 						</>
 					) : (
 						<li className={styles['menu-item']}>
 							<Anchor
 								component={NavLink}
-								to={AppRoutes.auth.login()}
+								to={AppRoutes.auth.login.fullPath()}
 								icon={<Icon src={IconSet.login} alt="Иконка входа" />}
 								iconRight={true}
 							>

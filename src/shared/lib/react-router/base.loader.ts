@@ -3,6 +3,7 @@ import { EndpointDefinitions } from '@reduxjs/toolkit/query';
 
 export class BaseLoader {
 	private static dispatch: TAppDispatch;
+	private static store: TStore;
 
 	protected static async baseLoader<
 		TParams,
@@ -28,6 +29,15 @@ export class BaseLoader {
 	}
 
 	static init(store: TStore) {
+		BaseLoader.store = store;
 		BaseLoader.dispatch = store.dispatch;
+	}
+
+	static getState() {
+		return BaseLoader.store.getState();
+	}
+
+	static getDispatch() {
+		return BaseLoader.dispatch;
 	}
 }

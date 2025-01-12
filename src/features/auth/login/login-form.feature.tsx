@@ -5,15 +5,15 @@ import { Button } from '~shared/ui/button';
 import { useAppDispatch, useAppSelector, useThunk } from '~shared/lib/redux';
 import { AuthSchemas, AuthThunks, AuthTypes } from '~entities/auth';
 import { Paragraph, ParagraphSizes } from '~shared/ui/paragraph';
-import { FavoritesSelectors } from '~entities/favorites';
-import { AppDataActions } from '~entities/app-data';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '~shared/lib/react-router';
+import { FavoritesSelectors } from '~entities/favorites';
+import { AppDataActions } from '~entities/app-data';
 
-export function RegisterForm() {
+export function LoginForm() {
 	const dispatch = useAppDispatch();
-	const favorites = useAppSelector(FavoritesSelectors.selectAll);
 	const navigate = useNavigate();
+	const favorites = useAppSelector(FavoritesSelectors.selectAll);
 
 	const {
 		register,
@@ -21,19 +21,19 @@ export function RegisterForm() {
 		formState: { errors, isDirty, isValid }
 	} = useForm<AuthTypes.TRegister>({
 		mode: 'onTouched',
-		resolver: zodResolver(AuthSchemas.RegisterSchema),
+		resolver: zodResolver(AuthSchemas.LoginSchema),
 		defaultValues: { login: '', password: '' }
 	});
 
-	const { fn: registerUser, isLoading, error } = useThunk(AuthThunks.register);
+	const { fn: loginFn, isLoading, error } = useThunk(AuthThunks.login);
 
 	const canSubmit = [isDirty, isValid, !isLoading].every(Boolean);
 
-	const onSubmit = async (registerData: AuthTypes.TRegister) => {
-		const newUser = await registerUser(registerData);
-		if (!newUser) return;
+	const onSubmit = async (loginData: AuthTypes.TLogin) => {
+		const currentUser = await loginFn(loginData);
+		if (!currentUser) return;
 		dispatch(
-			AppDataActions.addFavorites({ userLogin: newUser.login, favorites })
+			AppDataActions.addFavorites({ userLogin: currentUser.login, favorites })
 		);
 		navigate(AppRoutes.home());
 	};
@@ -53,13 +53,7 @@ export function RegisterForm() {
 					{...register('password')}
 					error={errors.password?.message}
 				/>
-				<Input
-					caption="Подтверждение пароля"
-					type="password"
-					{...register('confirmPassword')}
-					error={errors.confirmPassword?.message}
-				/>
-				<Button disabled={!canSubmit}>Зарегистрироваться</Button>
+				<Button disabled={!canSubmit}>Войти</Button>
 			</form>
 		</>
 	);

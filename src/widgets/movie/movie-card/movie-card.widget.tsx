@@ -19,9 +19,7 @@ export function MovieCard({
 				<div className={styles['rating-action']}>{ratingAction}</div>
 			</div>
 			<div className={styles['info-wrap']}>
-				<Anchor to={AppRoutes.movies.byId(movieShort)}>
-					{movieShort.name}
-				</Anchor>
+				<Anchor to={AppRoutes.movie.byId(movieShort)}>{movieShort.name}</Anchor>
 			</div>
 			<div className={styles['favorite-action']}>{favoriteAction}</div>
 		</div>

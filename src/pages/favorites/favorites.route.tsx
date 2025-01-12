@@ -2,7 +2,7 @@ import { RouteObject } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { FavoritesPageSkeleton } from './favorites.page.skeleton';
 import { AppRoutes } from '~shared/lib/react-router';
-import { homePageLoader } from './home.page.model';
+import { favoritesPageLoader } from './favorites.page.model';
 
 const FavoritesPage = lazy(() =>
 	import('./favorites.page.ui').then((module) => ({
@@ -10,12 +10,12 @@ const FavoritesPage = lazy(() =>
 	}))
 );
 
-export const homeRoute: RouteObject = {
-	path: AppRoutes.favorites(),
+export const favoritesRoute: RouteObject = {
+	path: AppRoutes.favorites.fullPath(),
 	element: (
 		<Suspense fallback={<FavoritesPageSkeleton />}>
 			<FavoritesPage />
 		</Suspense>
 	),
-	loader: homePageLoader.loader.bind(homePageLoader)
+	loader: favoritesPageLoader.loader.bind(favoritesPageLoader)
 };

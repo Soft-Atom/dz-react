@@ -1,0 +1,8 @@
+.favorites-count {
+	font-size: var(--size-xs);
+	text-align: center;
+	width: 24px;
+	background-color: var(--accent-color);
+	border-radius: 50%;
+	color: #fff;
+}

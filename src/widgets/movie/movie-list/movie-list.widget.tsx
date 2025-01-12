@@ -4,7 +4,7 @@ import type { IProps } from './interfaces';
 import styles from './styles.module.css';
 import { SetRaiting } from '~features/movie/set-raiting';
 
-export function MovieList({ data: { movies } }: IProps) {
+export function MovieList({ movies }: IProps) {
 	return (
 		<div className={styles['wrap']}>
 			{Array.from(movies.values()).map((m) => (

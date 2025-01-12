@@ -1,12 +1,14 @@
 import { z } from 'zod';
 
+export const SearchSchema = z.object({
+	q: z.string().min(3)
+});
+
 export const FindOneRequestSchema = z.object({
 	tt: z.string().min(1)
 });
 
-export const FindManyRequestSchema = z.object({
-	q: z.string().min(3)
-});
+export const FindManyRequestSchema = SearchSchema;
 
 export const FindOneShortSchema = z.object({
 	name: z.string(),

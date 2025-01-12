@@ -14,12 +14,3 @@
 .menu-item {
 	padding: 12px 16px;
 }
-
-.favorites-count {
-	font-size: var(--size-xs);
-	text-align: center;
-	width: 24px;
-	background-color: var(--accent-color);
-	border-radius: 50%;
-	color: #fff;
-}

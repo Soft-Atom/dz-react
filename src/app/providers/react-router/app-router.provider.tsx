@@ -11,6 +11,8 @@ import { homeRoute } from '~pages/home';
 import { MainSkeletomLayout } from '~pages/layouts';
 import { page404Route } from '~pages/page404';
 import { appStore } from '../redux/app.store';
+import { favoritesRoute } from '~pages/favorites';
+import { movieRoute } from '../../../pages/movie/movie.route';
 
 const MainLayout = lazy(() =>
 	import('~pages/layouts/main.layout.ui.').then((module) => ({
@@ -30,7 +32,13 @@ function getBrowserRouter() {
 							<MainLayout />
 						</Suspense>
 					),
-					children: [homeRoute, authRoute, page404Route]
+					children: [
+						homeRoute,
+						authRoute,
+						favoritesRoute,
+						movieRoute,
+						page404Route
+					]
 				},
 				{
 					loader: async () => redirect(AppRoutes.page404()),
