@@ -1,0 +1,13 @@
+.p {
+	line-height: 1.5em;
+	font-weight: var(--regular);
+	color: var(--secondary-color);
+}
+
+.p_m {
+	font-size: var(--size-m);
+}
+
+.p_s {
+	font-size: var(--size-s);
+}

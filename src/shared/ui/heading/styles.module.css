@@ -1,0 +1,17 @@
+.h {
+	line-height: 1.25em;
+	font-weight: var(--bold);
+	color: var(--primary-color);
+}
+
+.h1 {
+	font-size: var(--size-xxl);
+}
+
+.h2 {
+	font-size: var(--size-xl);
+}
+
+.h3 {
+	font-size: var(--size-l);
+}
